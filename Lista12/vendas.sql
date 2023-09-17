@@ -95,9 +95,9 @@ values
 ('Divorciado'),
 ('Viúvo');
 
-insert into TBL_cliente (nome_cliente, salario) 
+insert into TBL_cliente (nome_cliente, salario, cod_est_civ) 
 values 
-('Danilo', 1000);
+('Danilo', 1000, 2);
 
 insert into TBL_Tipo_Fone (desc_fone)
 values
@@ -120,13 +120,14 @@ insert into TBL_Premio (cod_func, valor_premio)
 values
 (1, 1000);
 
-insert into TBL_Conjuge (cod_cliente, nome)
+insert into TBL_Conjuge (cod_cliente, nome_conjuge)
 values
 (1, 'Luana');
 
-insert into TBL_Telefone (cod_cliente, cod_fone, numero)
+insert into TBL_Telefone (cod_cliente, cod_fone, numero_fone)
 values
-(1, 2, '(11) 12345-1234');
+(1, 2, '(11) 12345-1234'),
+(1, 1, '20542808');
 
 insert into TBL_Pedido (data_pedido) 
 values 
@@ -146,7 +147,8 @@ on TBL_cliente.cod_cliente = TBL_Telefone.cod_cliente;
 -- Selecione o nome dos clientes casados e o nome de seus cônjuges:
 select TBL_cliente.nome_cliente as Cliente, TBL_Conjuge.nome_conjuge as Conjuge
 from TBL_cliente inner join TBL_Conjuge
-on TBL_cliente.cod_cliente = TBL_Conjuge.cod_cliente;
+on TBL_cliente.cod_cliente = TBL_Conjuge.cod_cliente
+where cod_est_civ=2;
 
 -- Selecione o nome dos clientes, o numero e o tipo de telefone que cada um possui:
 select TBL_cliente.nome_cliente as Cliente, TBL_Telefone.numero_fone as Numero, TBL_Tipo_fone.desc_fone as Tipo
