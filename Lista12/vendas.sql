@@ -1,6 +1,7 @@
 CREATE DATABASE Vendas;
 DROP DATABASE Vendas;
 USE Vendas;
+USE master;
 
 -- TABELAS ---x---x---x---x---x---x---x---x---x 
 CREATE TABLE TBL_Estado_Civil(
@@ -129,9 +130,9 @@ values
 (1, 2, '(11) 12345-1234'),
 (1, 1, '20542808');
 
-insert into TBL_Pedido (data_pedido) 
+insert into TBL_Pedido (cod_cliente, cod_func, data_pedido) 
 values 
-('10/01/2002');
+(1, 1, '10/01/2002');
 
 insert into TBL_Item_Pedido (cod_pedido, cod_produto, qtde_produto)
 values
