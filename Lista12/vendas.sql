@@ -2,7 +2,7 @@ CREATE DATABASE Vendas;
 DROP DATABASE Vendas;
 USE Vendas;
 
--- TABELAS
+-- TABELAS ---x---x---x---x---x---x---x---x---x 
 CREATE TABLE TBL_Estado_Civil(
 	PRIMARY KEY (cod_est_civ),
 	cod_est_civ int IDENTITY,
@@ -66,7 +66,7 @@ CREATE TABLE TBL_Telefone(
 	cod_cliente int,
 	FOREIGN KEY (cod_fone) REFERENCES TBL_Tipo_Fone,
 	cod_fone int,
-	numero_fone int,
+	numero_fone varchar(15),
 );
 
 CREATE TABLE TBL_Pedido(
@@ -87,12 +87,56 @@ CREATE TABLE TBL_Item_Pedido(
 	qtde_produto int
 );
 
--- INSERTS
-insert into TBL_cliente (nome_cliente, salario) values ('Danilo', 1000);
-insert into TBL_Func (nome_func) values ('Francisco');
-insert into TBL_Pedido (data_pedido) values ('10/01/2002');
+-- INSERTS ---x---x---x---x---x---x---x---x---x 
+insert into TBL_Estado_Civil (desc_est_civ) 
+values
+('Solteiro'),
+('Casado'),
+('Divorciado'),
+('Viúvo');
 
--- EXERCÍCIOS
+insert into TBL_cliente (nome_cliente, salario) 
+values 
+('Danilo', 1000);
+
+insert into TBL_Tipo_Fone (desc_fone)
+values
+('Telefone Fixo'),
+('Celular');
+
+insert into TBL_Produto (nome_produto, tipo_produto)
+values
+('Produto 1', 'Brinquedo');
+
+insert into TBL_Func (nome_func) 
+values 
+('Francisco');
+
+insert into TBL_Dependente (cod_func, nome_dep, data_nasc)
+values
+(1, 'Raimundo', '01/08/1995');
+
+insert into TBL_Premio (cod_func, valor_premio)
+values
+(1, 1000);
+
+insert into TBL_Conjuge (cod_cliente, nome)
+values
+(1, 'Luana');
+
+insert into TBL_Telefone (cod_cliente, cod_fone, numero)
+values
+(1, 2, '(11) 12345-1234');
+
+insert into TBL_Pedido (data_pedido) 
+values 
+('10/01/2002');
+
+insert into TBL_Item_Pedido (cod_pedido, cod_produto, qtde_produto)
+values
+(1, 1, 4);
+
+-- EXERCÍCIOS ---x---x---x---x---x---x---x---x---x 
 
 -- Selecione o nome dos clientes e o numero de todos os telefones que cada cliente possui:
 select TBL_cliente.nome_cliente as Nome, TBL_Telefone.numero_fone as Numero
