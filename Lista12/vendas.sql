@@ -98,7 +98,7 @@ values
 
 insert into TBL_cliente (nome_cliente, salario, cod_est_civ) 
 values 
-('Danilo', 1000, 2);
+('Rener', 1000, 2);
 
 insert into TBL_Tipo_Fone (desc_fone)
 values
@@ -138,7 +138,7 @@ insert into TBL_Item_Pedido (cod_pedido, cod_produto, qtde_produto)
 values
 (1, 1, 4);
 
--- EXERCÍCIOS ---x---x---x---x---x---x---x---x---x 
+-- EXERCÍCIOS Parte 1 ---x---x---x---x---x---x---x---x---x
 
 -- Selecione o nome dos clientes e o numero de todos os telefones que cada cliente possui:
 select TBL_cliente.nome_cliente as Nome, TBL_Telefone.numero_fone as Numero
@@ -172,3 +172,23 @@ on TBL_Pedido.cod_cliente = TBL_cliente.cod_cliente
 inner join TBL_Func
 on TBL_Pedido.cod_func = TBL_Func.cod_func
 where nome_func like 'Francisco';
+
+-- EXERCÍCIOS Parte 2 ---x---x---x---x---x---x---x---x---x
+
+-- Selecione o código e a data do pedido, o nome do funcionário que atendeu o pedido do cliente “Rener”:
+select TBL_Pedido.cod_pedido as Codigo, TBL_Pedido.data_pedido as Data, TBL_Func.nome_func as Funcionario
+from TBL_Pedido inner join TBL_Func
+on TBL_Pedido.cod_func = TBL_Func.cod_func
+inner join TBL_cliente
+on TBL_Pedido.cod_cliente = TBL_cliente.cod_cliente
+where TBL_cliente.nome_cliente like 'Rener';
+
+-- Mostre o nome e a data de nascimento dos dependentes de cada funcionário:
+select TBL_Func.nome_func, TBL_Dependente.nome_dep, TBL_Dependente.data_nasc
+from TBL_Func inner join TBL_Dependente
+on TBL_Func.cod_func = TBL_Dependente.cod_func
+
+-- Selecione o código e a data do pedido e o nome de cada produto vendido:
+select TBL_Produto.nome_produto as Produto, TBL_Pedido.cod_pedido as Cod, TBL_Pedido.data_pedido as DataPedido
+from TBL_Produto inner join TBL_Pedido
+on TBL_Pedido.cod_pedido = TBL_Pedido.cod_pedido
