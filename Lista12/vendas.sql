@@ -98,7 +98,8 @@ values
 
 insert into TBL_cliente (nome_cliente, salario, cod_est_civ) 
 values 
-('Rener', 1000, 2);
+('Rener', 1000, 2),
+('Daniel', 1000, 1);
 
 insert into TBL_Tipo_Fone (desc_fone)
 values
@@ -107,11 +108,12 @@ values
 
 insert into TBL_Produto (nome_produto, tipo_produto)
 values
-('Produto 1', 'Brinquedo');
+('Fósforo', 'Utilidade doméstica');
 
 insert into TBL_Func (nome_func) 
 values 
-('Francisco');
+('Francisco'),
+('Roseane');
 
 insert into TBL_Dependente (cod_func, nome_dep, data_nasc)
 values
@@ -132,11 +134,15 @@ values
 
 insert into TBL_Pedido (cod_cliente, cod_func, data_pedido) 
 values 
-(1, 1, '10/01/2002');
+(1, 1, '10/01/2002'),
+(2, 2, '10/01/2006'),
+(2, 2, '10/01/2009');
 
 insert into TBL_Item_Pedido (cod_pedido, cod_produto, qtde_produto)
 values
-(1, 1, 4);
+(1, 1, 4),
+(2, 1, 2),
+(3, 1, 2);
 
 -- EXERCÍCIOS Parte 1 ---x---x---x---x---x---x---x---x---x
 
@@ -175,7 +181,7 @@ where nome_func like 'Francisco';
 
 -- EXERCÍCIOS Parte 2 ---x---x---x---x---x---x---x---x---x
 
--- Selecione o código e a data do pedido, o nome do funcionário que atendeu o pedido do cliente “Rener”:
+-- 6 Selecione o código e a data do pedido, o nome do funcionário que atendeu o pedido do cliente “Rener”:
 select TBL_Pedido.cod_pedido as Codigo, TBL_Pedido.data_pedido as Data, TBL_Func.nome_func as Funcionario
 from TBL_Pedido inner join TBL_Func
 on TBL_Pedido.cod_func = TBL_Func.cod_func
@@ -183,12 +189,60 @@ inner join TBL_cliente
 on TBL_Pedido.cod_cliente = TBL_cliente.cod_cliente
 where TBL_cliente.nome_cliente like 'Rener';
 
--- Mostre o nome e a data de nascimento dos dependentes de cada funcionário:
-select TBL_Func.nome_func, TBL_Dependente.nome_dep, TBL_Dependente.data_nasc
+-- 7 Mostre o nome e a data de nascimento dos dependentes de cada funcionário:
+select TBL_Func.nome_func as Funcionario, TBL_Dependente.nome_dep as Dependente, TBL_Dependente.data_nasc as DataDependente
 from TBL_Func inner join TBL_Dependente
 on TBL_Func.cod_func = TBL_Dependente.cod_func
 
--- Selecione o código e a data do pedido e o nome de cada produto vendido:
+-- 8 Selecione o código e a data do pedido e o nome de cada produto vendido:
 select TBL_Produto.nome_produto as Produto, TBL_Pedido.cod_pedido as Cod, TBL_Pedido.data_pedido as DataPedido
 from TBL_Produto inner join TBL_Pedido
 on TBL_Pedido.cod_pedido = TBL_Pedido.cod_pedido
+
+-- 9 Selecione o código e a data do pedido e o nome de funcionário que vendeu “Fosforo”:
+select TBL_Pedido.cod_pedido as Codigo, TBL_Pedido.data_pedido as DataPedido, TBL_Func.nome_func as Funcionario
+from TBL_Pedido inner join TBL_Func
+on TBL_Pedido.cod_func = TBL_Func.cod_func
+inner join TBL_Item_Pedido
+on TBL_Pedido.cod_pedido = TBL_Item_Pedido.cod_pedido
+inner join TBL_Produto
+on TBL_Item_Pedido.cod_produto = TBL_Pedido.cod_pedido
+where TBL_Produto.nome_produto like 'Fósforo';
+
+-- 10 - Selecione o código e a data do pedido e o nome dos produtos comprados pelo cliente “Daniel”:
+select TBL_Pedido.cod_pedido as Codigo, TBL_Pedido.data_pedido as DataPedido, TBL_Produto.nome_produto as Produto
+from TBL_Pedido inner join TBL_Item_Pedido
+on TBL_Pedido.cod_pedido = TBL_Item_Pedido.cod_pedido
+inner join TBL_cliente
+on TBL_Pedido.cod_cliente = TBL_cliente.cod_cliente
+inner join TBL_Produto
+on TBL_Item_Pedido.cod_produto = TBL_Produto.cod_produto
+where TBL_cliente.nome_cliente like 'Daniel';
+
+-- 11 Selecione todos os produtos vendidos pela funcionária “Roseane”:
+select TBL_Produto.nome_produto as Produto, TBL_Func.nome_func as Funcionaria
+from TBL_Produto inner join TBL_Item_Pedido
+on TBL_Produto.cod_produto = TBL_Item_Pedido.cod_produto
+inner join TBL_Pedido
+on TBL_Item_Pedido.cod_produto = TBL_Produto.cod_produto
+inner join TBL_Func
+on TBL_Pedido.cod_func = TBL_Func.cod_func
+where TBL_Func.nome_func like 'Roseane';
+
+-- 12 Selecione o nome dos clientes e o nome dos produtos comprados respectivamente:
+select TBL_cliente.nome_cliente as Cliente, TBL_Produto.nome_produto as Produto
+from TBL_cliente inner join TBL_Pedido
+on TBL_cliente.cod_cliente = TBL_Pedido.cod_cliente
+inner join TBL_Item_Pedido
+on TBL_Pedido.cod_pedido = TBL_Item_Pedido.cod_pedido
+inner join TBL_Produto
+on TBL_Item_Pedido.cod_produto = TBL_Produto.cod_produto;
+
+-- 13 Selecione o nome dos funcionários e o nome dos produtos vendidos respectivamente:
+select TBL_Func.nome_func as Funcionario, TBL_Produto.nome_produto as Produto
+from TBL_Func inner join TBL_Pedido
+on TBL_Func.cod_func = TBL_Pedido.cod_func
+inner join TBL_Item_Pedido
+on TBL_Pedido.cod_pedido = TBL_Item_Pedido.cod_pedido
+inner join TBL_Produto
+on TBL_Item_Pedido.cod_produto = TBL_Produto.cod_produto;
