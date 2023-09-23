@@ -123,7 +123,7 @@ values
 
 insert into TBL_Premio (cod_func, valor_premio)
 values
-(1, 1000),
+(1, 1000);
 
 insert into TBL_Conjuge (cod_cliente, nome_conjuge)
 values
@@ -250,7 +250,9 @@ inner join TBL_Produto
 on TBL_Item_Pedido.cod_produto = TBL_Produto.cod_produto;
 
 -- EXERCÍCIOS Parte 3 ---x---x---x---x---x---x---x---x---x
+
 -- -- -- Group by -- -- --
+
 -- 14 Mostre o nome dos funcionários e o valor total dos prêmios que cada funcionário tem:
 select TBL_Func.nome_func as Funcionario, sum(TBL_Premio.valor_premio) as TotalPremio
 from TBL_Func inner join TBL_Premio
@@ -269,7 +271,7 @@ from TBL_cliente inner join TBL_Estado_Civil
 on TBL_cliente.cod_est_civ = TBL_Estado_Civil.cod_est_civ
 group by desc_est_civ;
 
--- SubQuery
+-- -- -- SubQuery -- -- --
 
 -- 17 Selecione os dados dos clientes que não tem telefone:
 select *
@@ -296,7 +298,7 @@ where cod_func not in (select distinct cod_func from TBL_Premio);
 -- 21 Selecione os dados dos funcionários que não têm dependentes:
 select *
 from TBL_Func
-where cod_func NOT IN (select distinct cod_func from TBL_Dependente);
+where cod_func not in (select distinct cod_func from TBL_Dependente);
 
 -- 22 Selecione os produtos que nunca foram vendidos:
 select *
