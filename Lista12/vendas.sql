@@ -198,8 +198,10 @@ on TBL_Func.cod_func = TBL_Dependente.cod_func
 
 -- 8 Selecione o código e a data do pedido e o nome de cada produto vendido:
 select TBL_Produto.nome_produto as Produto, TBL_Pedido.cod_pedido as Cod, TBL_Pedido.data_pedido as DataPedido
-from TBL_Produto inner join TBL_Pedido
-on TBL_Pedido.cod_pedido = TBL_Pedido.cod_pedido
+from TBL_Produto inner join TBL_Item_Pedido
+on TBL_Produto.cod_produto = TBL_Item_Pedido.cod_produto
+inner join TBL_Pedido
+on TBL_Item_Pedido.cod_pedido = TBL_Item_Pedido.cod_pedido
 
 -- 9 Selecione o código e a data do pedido e o nome de funcionário que vendeu “Fosforo”:
 select TBL_Pedido.cod_pedido as Codigo, TBL_Pedido.data_pedido as DataPedido, TBL_Func.nome_func as Funcionario
