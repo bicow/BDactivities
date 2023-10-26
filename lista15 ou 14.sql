@@ -1,3 +1,5 @@
+/* Danilo Costa Rodrigues 3ºAMS */
+
 -- Criação do banco de dados:
 CREATE DATABASE IndustriaBeleza;
 -- Abertua do banco
