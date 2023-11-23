@@ -250,3 +250,41 @@ VALUES
 (5, 5, 'Débito'),
 (6, 6, 'Crédito');
 select * from DescricaoNota;
+
+-- Exercícios:
+
+-- A) Listar todos os pontos estratégicos de cada região
+SELECT nomeRegiao as Regiao, nomePontoEst as Ponto
+FROM  PontoEstrategico inner join Regiao
+ON Regiao.codRegiao = PontoEstrategico.codRegiao;
+
+-- B) Listar os nomes das regiões cadastradas
+SELECT nomeRegiao as Regiao
+FROM Regiao;
+
+-- C) Listar todos os vendedores e quais veículos que eles utilizaram no ultimo mês
+SELECT nomeVendedor as Vendedor, ModeloVeiculo.descricaoModelo as Veiculo, AtribuicaoVeiculoVendedor.dataAtribuicao as Data_Atribuicao
+FROM Vendedor inner join Veiculo
+ON Vendedor.codVeiculo = Veiculo.codVeiculo
+inner join AtribuicaoVeiculoVendedor
+ON Vendedor.codVendedor = AtribuicaoVeiculoVendedor.codVendedor
+inner join ModeloVeiculo
+ON Veiculo.codModeloVeiculo = ModeloVeiculo.codModeloVeiculo
+where dataAtribuicao ????
+
+-- D) Listar todos os vendedores responsáveis por cada região
+
+
+-- E) Todos os produtos vendidos por um determinado vendedor
+
+
+-- F) Todos os vendedores que venderam determinado produto
+
+
+-- G) Todos os produtos que ainda não foram vendidos
+
+
+-- H) Listar o histórico de utilização de um determinado veículo
+
+
+-- I) A quantidade de itens de cada nota fiscal
